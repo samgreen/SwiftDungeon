@@ -8,38 +8,148 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
+    var characterNodes = [CharacterNode]()
+    var abilityNodes = [AbilityNode]()
+    
+    let levelLabel = SKLabelNode(fontNamed: "PressStart2P")
+    var pendingAbility: Ability?
+    
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+        scaleMode = .AspectFill
         
-        self.addChild(myLabel)
+        BattleManager.sharedManager.delegate = self
+        LevelManager.sharedManager.delegate = self
+        
+        LevelManager.sharedManager.addPlayer(Neophyte())
+        LevelManager.sharedManager.addPlayer(Knight())
+        LevelManager.sharedManager.addPlayer(Cleric())
+
+        levelLabel.horizontalAlignmentMode = .Left
+        levelLabel.fontSize = 12
+        levelLabel.position = CGPoint(x: 4, y: CGRectGetMaxY(self.frame) - levelLabel.fontSize - 4)
+        
+        self.addChild(levelLabel)
+        
+        LevelManager.sharedManager.moveToNextLevel()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       /* Called when a touch begins */
-        
-        for touch in touches {
-            let location = touch.locationInNode(self)
+        if let touch = touches.first {
+            let point = touch.locationInNode(self)
             
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
+            // Process touches on enemy nodes
+            let touchedCharacterNodes = characterNodes.filter {
+                return CGRectContainsPoint($0.calculateAccumulatedFrame(), point)
+            }
             
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
+            if let node = touchedCharacterNodes.first {
+                if let pendingAbility = self.pendingAbility {
+                    if pendingAbility.canExecuteOnTarget(node.character) {
+                        if let activeCharacter = BattleManager.sharedManager.activeCharacter {
+                            activeCharacter.executeAbility(pendingAbility, target: node.character)
+                            
+                            // Successfully executed an ability, so move to the next character, ending the turn
+                            BattleManager.sharedManager.moveToNextCharacter()
+                            return
+                        }
+                    }
+                }
+            }
             
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
+            // Process touches on ability nodes
+            let touchedAbilityNodes = abilityNodes.filter {
+                return CGRectContainsPoint($0.calculateAccumulatedFrame(), point)
+            }
             
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
+            if let node = touchedAbilityNodes.first {
+                node.addSelectedAction()
+                pendingAbility = node.ability
+            } else {
+                abilityNodes.forEach { $0.removeSelectedAction() }
+                pendingAbility = nil
+            }
         }
     }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+        characterNodes.forEach { $0.updateFromCharacter() }
+    }
+    
+    // MARK: LevelManagerDelegate
+    func didMoveToLevel(level: Int) {
+        levelLabel.text = "Level \(level)"
+        
+        BattleManager.sharedManager.startBattle()
+    }
+    
+    // MARK: BattleManagerDelegate
+    func didStartBattle() {
+        addNodesForLevel()
+    }
+    
+    func didMoveToActiveCharacter(character: Character) {
+        characterNodes.forEach { $0.removeSelectedAction() }
+        character.node?.addSelectedAction()
+        addAbilityNodesForCharacter(character)
+        
+        if character.isEnemy {
+            // AI Logic
+            if let randomPlayer = BattleManager.sharedManager.players.first {
+                if let basicAttack = character.abilities.last {
+                    if basicAttack.canExecuteOnTarget(randomPlayer) {
+                        character.executeAbility(basicAttack, target: randomPlayer)
+                        
+                        // Successfully executed an ability, so move to the next character, ending the turn
+                        BattleManager.sharedManager.moveToNextCharacter()
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: Helpers
+    private func addNodesForLevel() {
+        for (i, enemy) in BattleManager.sharedManager.enemies.enumerate() {
+            let node = CharacterNode(character: enemy)
+            addCharacterNode(node, isEnemy: true, index: i)
+        }
+        
+        for (i, player) in BattleManager.sharedManager.players.enumerate() {
+            let node = CharacterNode(character: player)
+            addCharacterNode(node, isEnemy: false, index: i)
+        }
+    }
+    
+    private func addCharacterNode(node: CharacterNode, isEnemy: Bool, index: Int) {
+        let size = node.calculateAccumulatedFrame().size
+        let xPadding: CGFloat = 70
+        let ySpacing: CGFloat = 20 + size.height
+        let yPosition: CGFloat = CGRectGetMinY(self.frame) + ySpacing + CGFloat(index) * ySpacing
+        if isEnemy {
+            node.position = CGPoint(x: CGRectGetMaxX(self.frame) - xPadding, y: yPosition)
+            node.sprite.color = UIColor.redColor()
+        } else {
+            node.position = CGPoint(x: xPadding, y: yPosition)
+            node.sprite.color = UIColor.greenColor()
+        }
+        
+        characterNodes.append(node)
+        addChild(node)
+    }
+    
+    private func addAbilityNodesForCharacter(character: Character) {
+        abilityNodes.forEach { $0.removeFromParent() }
+        abilityNodes.removeAll()
+        
+        guard !character.isEnemy else { return }
+        
+        for (i, ability) in character.validAbilities.enumerate() {
+            let node = AbilityNode(ability: ability)
+            node.position = CGPoint(x: 200 + i * 80, y: 54)
+            abilityNodes.append(node)
+            addChild(node)
+        }
     }
 }
