@@ -11,7 +11,7 @@ import UIKit
 
 class DefensiveStanceAbility: Ability {
     let cost = 2
-    let name = "Defensive Stance"
+    let name = "Hunker Down"
     let description = "Forego an attack in favor of increased defense for this turn."
     
     let imageName = "DefensiveStance"
@@ -23,9 +23,8 @@ class DefensiveStanceAbility: Ability {
         self.owner = owner
     }
     
-    
     func execute(executor: Character, target: Character) {
-        // TODO: Add this
+        executor.damageReduction = 0.5
     }
     
     func canExecuteOnTarget(target: Character) -> Bool {

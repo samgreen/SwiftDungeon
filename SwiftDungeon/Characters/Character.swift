@@ -35,6 +35,7 @@ class Character: Entity {
     var maxAbilityPoints: Int
     var attackPower: Int
     var status: EntityStatus = .Normal
+    var damageReduction: Float = 0
     
     // MARK: Character
     var name = ""

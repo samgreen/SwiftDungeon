@@ -37,7 +37,19 @@ class BattleManager {
         moveToNextCharacter()
     }
     
-    func moveToNextCharacter() -> Character? {
+    func endTurn() {
+        combatQueue = combatQueue.filter { $0.health > 0 }
+        
+        let deadPlayers = players.filter { $0.health <= 0 }
+        deadPlayers.forEach { $0.node?.addDeathAnimation() }
+        
+        let deadEnemies = enemies.filter { $0.health <= 0 }
+        deadEnemies.forEach { $0.node?.addDeathAnimation() }
+        
+        moveToNextCharacter()
+    }
+    
+    func moveToNextCharacter() {
         // Check entity status here to ensure they aren't stunned
         if let activeCharacter = combatQueue.filter({ $0.status != .Stunned }).first {
             combatQueue.insert(activeCharacter, atIndex: combatQueue.count)
@@ -51,8 +63,6 @@ class BattleManager {
                 delegate.didMoveToActiveCharacter(activeCharacter)
             }
         }
-        
-        return activeCharacter
     }
     
     private func generateEnemies() {

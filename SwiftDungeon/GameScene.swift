@@ -47,10 +47,10 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
                 if let pendingAbility = self.pendingAbility {
                     if pendingAbility.canExecuteOnTarget(node.character) {
                         if let activeCharacter = BattleManager.sharedManager.activeCharacter {
-                            activeCharacter.executeAbility(pendingAbility, target: node.character)
-                            
-                            // Successfully executed an ability, so move to the next character, ending the turn
-                            BattleManager.sharedManager.moveToNextCharacter()
+                            activeCharacter.node?.addAttackAnimation {
+                                activeCharacter.executeAbility(pendingAbility, target: node.character)
+                                BattleManager.sharedManager.endTurn()
+                            }
                             return
                         }
                     }
@@ -100,10 +100,10 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
             let randomPlayer = BattleManager.sharedManager.players.randomElement()
             if let basicAttack = enemyCharacter.abilities.last {
                 if basicAttack.canExecuteOnTarget(randomPlayer) {
-                    enemyCharacter.executeAbility(basicAttack, target: randomPlayer)
-                    
-                    // Successfully executed an ability, so move to the next character, ending the turn
-                    BattleManager.sharedManager.moveToNextCharacter()
+                    enemyCharacter.node?.addAttackAnimation {
+                        enemyCharacter.executeAbility(basicAttack, target: randomPlayer)
+                        BattleManager.sharedManager.endTurn()
+                    }
                     return
                 }
             }

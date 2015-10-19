@@ -57,13 +57,26 @@ class CharacterNode: SKNode {
     func addSelectedAction() {
         let scaleAction = SKAction.scaleBy(1.05, duration: 0.5)
         let repeatScaleAction = SKAction.repeatActionForever(SKAction.sequence([scaleAction, scaleAction.reversedAction()]))
-        runAction(repeatScaleAction, withKey: "selectedScaleAnimation")
+        runAction(repeatScaleAction, withKey: "selectedScaleAction")
     }
     
     func removeSelectedAction() {
-        removeActionForKey("selectedScaleAnimation")
+        removeActionForKey("selectedScaleAction")
         xScale = 1
         yScale = 1
+    }
+    
+    func addAttackAnimation(complete: (() -> Void)) {
+        let moveAction = SKAction.moveBy(CGVector(dx: character.isEnemy ? -5 : 5, dy: 0), duration: 0.33)
+        let moveAndReverseAction = SKAction.sequence([moveAction, moveAction.reversedAction()])
+        runAction(moveAndReverseAction, completion: complete)
+    }
+    
+    func addDeathAnimation() {
+        let alphaAction = SKAction.fadeOutWithDuration(0.33)
+        runAction(alphaAction) {
+            self.removeFromParent()
+        }
     }
     
     func updateFromCharacter() {

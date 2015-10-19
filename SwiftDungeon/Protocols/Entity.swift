@@ -17,6 +17,8 @@ enum EntityStatus {
 protocol Entity: Damageable {
     var abilityPoints: Int { get set }
     var maxAbilityPoints: Int { get }
+    
     var status: EntityStatus { get set }
     var attackPower: Int { get }
+    var damageReduction: Float { get }
 }
