@@ -45,7 +45,11 @@ class CharacterNode: SKNode {
         addChild(sprite)
         addChild(nameLabel)
         addChild(healthLabel)
-        addChild(abilityLabel)
+        
+        // Don't show AP for enemies
+        if !character.isEnemy {
+            addChild(abilityLabel)
+        }
         
         updateFromCharacter()
     }
@@ -64,7 +68,11 @@ class CharacterNode: SKNode {
     
     func updateFromCharacter() {
         nameLabel.text = self.character.name
-        healthLabel.text = "\(self.character.health)/\(self.character.maxHealth)♥"
+        if character.isEnemy {
+            healthLabel.text = "\(self.character.health)♥"
+        } else {
+            healthLabel.text = "\(self.character.health)/\(self.character.maxHealth)♥"
+        }
         abilityLabel.text = "\(self.character.abilityPoints)/\(self.character.maxAbilityPoints)★"
         name = "Character: \(self.character.name)"
     }

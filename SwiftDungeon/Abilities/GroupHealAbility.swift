@@ -31,7 +31,7 @@ class GroupHealAbility: Ability {
     }
     
     func canExecuteOnTarget(target: Character) -> Bool {
-        if target.health == target.maxHealth || target.isEnemy {
+        if target.health == target.maxHealth || owner.isEnemy != target.isEnemy {
             return false
         }
         

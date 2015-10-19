@@ -65,5 +65,7 @@ class AbilityNode: SKNode {
         nameLabel.text = self.ability.name
         abilityLabel.text = "\(self.ability.cost)★"
         name = "Ability: \(self.ability.name)"
+        
+        alpha = ability.owner.canExecuteAbility(ability) ? 1.0 : 0.5
     }
 }

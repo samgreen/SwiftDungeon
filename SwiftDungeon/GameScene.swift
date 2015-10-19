@@ -74,6 +74,7 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
    
     override func update(currentTime: CFTimeInterval) {
         characterNodes.forEach { $0.updateFromCharacter() }
+        abilityNodes.forEach { $0.updateFromAbility() }
     }
     
     // MARK: LevelManagerDelegate
@@ -88,22 +89,22 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
         addNodesForLevel()
     }
     
-    func didMoveToActiveCharacter(character: Character) {
+    func didMoveToActiveCharacter(activeCharacter: Character) {
         characterNodes.forEach { $0.removeSelectedAction() }
-        character.node?.addSelectedAction()
-        addAbilityNodesForCharacter(character)
+        activeCharacter.node?.addSelectedAction()
+        addAbilityNodesForCharacter(activeCharacter)
         
-        if character.isEnemy {
+        if activeCharacter.isEnemy {
+            let enemyCharacter = activeCharacter
             // AI Logic
-            if let randomPlayer = BattleManager.sharedManager.players.first {
-                if let basicAttack = character.abilities.last {
-                    if basicAttack.canExecuteOnTarget(randomPlayer) {
-                        character.executeAbility(basicAttack, target: randomPlayer)
-                        
-                        // Successfully executed an ability, so move to the next character, ending the turn
-                        BattleManager.sharedManager.moveToNextCharacter()
-                        return
-                    }
+            let randomPlayer = BattleManager.sharedManager.players.randomElement()
+            if let basicAttack = enemyCharacter.abilities.last {
+                if basicAttack.canExecuteOnTarget(randomPlayer) {
+                    enemyCharacter.executeAbility(basicAttack, target: randomPlayer)
+                    
+                    // Successfully executed an ability, so move to the next character, ending the turn
+                    BattleManager.sharedManager.moveToNextCharacter()
+                    return
                 }
             }
         }

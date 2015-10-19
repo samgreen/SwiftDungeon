@@ -9,7 +9,7 @@
 import Foundation
 
 protocol BattleManagerDelegate {
-    func didMoveToActiveCharacter(character: Character)
+    func didMoveToActiveCharacter(activeCharacter: Character)
     func didStartBattle()
 }
 
@@ -17,8 +17,7 @@ class BattleManager {
     static let sharedManager = BattleManager()
     
     var delegate: BattleManagerDelegate?
-    
-    var level = 1
+
     var players = [Character]()
     var enemies = [Character]()
     var combatQueue = [Character]()
@@ -60,9 +59,9 @@ class BattleManager {
         enemies.removeAll()
         
         var numEnemies = 1
-        switch level {
+        switch LevelManager.sharedManager.level {
         case 3...4: numEnemies = 2
-        case 6...9: numEnemies = 4
+        case 6...9: numEnemies = Int(arc4random_uniform(2) + 2)
         default: numEnemies = 1
         }
         
