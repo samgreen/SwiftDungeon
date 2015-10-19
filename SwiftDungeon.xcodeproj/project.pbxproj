@@ -39,6 +39,7 @@
 		5135844A1BD45F3D008EEDF1 /* AbilityNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513584491BD45F3D008EEDF1 /* AbilityNode.swift */; settings = {ASSET_TAGS = (); }; };
 		5135844C1BD48C66008EEDF1 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135844B1BD48C66008EEDF1 /* Drawable.swift */; settings = {ASSET_TAGS = (); }; };
 		5135844E1BD494A8008EEDF1 /* DefensiveStanceAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135844D1BD494A8008EEDF1 /* DefensiveStanceAbility.swift */; settings = {ASSET_TAGS = (); }; };
+		513584531BD49B56008EEDF1 /* Array+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513584521BD49B56008EEDF1 /* Array+Random.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		513584491BD45F3D008EEDF1 /* AbilityNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbilityNode.swift; sourceTree = "<group>"; };
 		5135844B1BD48C66008EEDF1 /* Drawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		5135844D1BD494A8008EEDF1 /* DefensiveStanceAbility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefensiveStanceAbility.swift; sourceTree = "<group>"; };
+		513584521BD49B56008EEDF1 /* Array+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Random.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 		513583E21BD3379E008EEDF1 /* SwiftDungeon */ = {
 			isa = PBXGroup;
 			children = (
+				513584511BD49B4A008EEDF1 /* Extensions */,
 				513584341BD34D6F008EEDF1 /* Nodes */,
 				513584331BD34CD5008EEDF1 /* Managers */,
 				5135842A1BD3486A008EEDF1 /* Characters */,
@@ -262,6 +265,14 @@
 				513584491BD45F3D008EEDF1 /* AbilityNode.swift */,
 			);
 			name = Nodes;
+			sourceTree = "<group>";
+		};
+		513584511BD49B4A008EEDF1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				513584521BD49B56008EEDF1 /* Array+Random.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,6 +417,7 @@
 				5135844A1BD45F3D008EEDF1 /* AbilityNode.swift in Sources */,
 				513584381BD356BC008EEDF1 /* RustySwordItem.swift in Sources */,
 				513583E81BD3379E008EEDF1 /* GameScene.swift in Sources */,
+				513584531BD49B56008EEDF1 /* Array+Random.swift in Sources */,
 				5135842E1BD34994008EEDF1 /* Neophyte.swift in Sources */,
 				5135841D1BD33A8B008EEDF1 /* Entity.swift in Sources */,
 				513583EA1BD3379E008EEDF1 /* GameViewController.swift in Sources */,
