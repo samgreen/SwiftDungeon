@@ -129,10 +129,10 @@
 		513583D71BD3379E008EEDF1 = {
 			isa = PBXGroup;
 			children = (
+				513583E11BD3379E008EEDF1 /* Products */,
 				513583E21BD3379E008EEDF1 /* SwiftDungeon */,
 				513583FB1BD3379E008EEDF1 /* SwiftDungeonTests */,
 				513584061BD3379E008EEDF1 /* SwiftDungeonUITests */,
-				513583E11BD3379E008EEDF1 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,21 +149,21 @@
 		513583E21BD3379E008EEDF1 /* SwiftDungeon */ = {
 			isa = PBXGroup;
 			children = (
-				513584511BD49B4A008EEDF1 /* Extensions */,
-				513584341BD34D6F008EEDF1 /* Nodes */,
-				513584331BD34CD5008EEDF1 /* Managers */,
-				5135842A1BD3486A008EEDF1 /* Characters */,
-				513584251BD33E8A008EEDF1 /* Items */,
 				513584241BD33E85008EEDF1 /* Abilities */,
+				5135842A1BD3486A008EEDF1 /* Characters */,
+				513584511BD49B4A008EEDF1 /* Extensions */,
+				513584251BD33E8A008EEDF1 /* Items */,
+				513584331BD34CD5008EEDF1 /* Managers */,
+				513584341BD34D6F008EEDF1 /* Nodes */,
 				513584151BD337A3008EEDF1 /* Protocols */,
 				513583E31BD3379E008EEDF1 /* AppDelegate.swift */,
+				513583EE1BD3379E008EEDF1 /* Assets.xcassets */,
 				513583E51BD3379E008EEDF1 /* GameScene.sks */,
 				513583E71BD3379E008EEDF1 /* GameScene.swift */,
 				513583E91BD3379E008EEDF1 /* GameViewController.swift */,
-				513583EB1BD3379E008EEDF1 /* Main.storyboard */,
-				513583EE1BD3379E008EEDF1 /* Assets.xcassets */,
-				513583F01BD3379E008EEDF1 /* LaunchScreen.storyboard */,
 				513583F31BD3379E008EEDF1 /* Info.plist */,
+				513583F01BD3379E008EEDF1 /* LaunchScreen.storyboard */,
+				513583EB1BD3379E008EEDF1 /* Main.storyboard */,
 				513584471BD435DC008EEDF1 /* PressStart2P.ttf */,
 			);
 			path = SwiftDungeon;
@@ -172,8 +172,8 @@
 		513583FB1BD3379E008EEDF1 /* SwiftDungeonTests */ = {
 			isa = PBXGroup;
 			children = (
-				513583FC1BD3379E008EEDF1 /* SwiftDungeonTests.swift */,
 				513583FE1BD3379E008EEDF1 /* Info.plist */,
+				513583FC1BD3379E008EEDF1 /* SwiftDungeonTests.swift */,
 			);
 			path = SwiftDungeonTests;
 			sourceTree = "<group>";
@@ -181,8 +181,8 @@
 		513584061BD3379E008EEDF1 /* SwiftDungeonUITests */ = {
 			isa = PBXGroup;
 			children = (
-				513584071BD3379E008EEDF1 /* SwiftDungeonUITests.swift */,
 				513584091BD3379E008EEDF1 /* Info.plist */,
+				513584071BD3379E008EEDF1 /* SwiftDungeonUITests.swift */,
 			);
 			path = SwiftDungeonUITests;
 			sourceTree = "<group>";
@@ -190,26 +190,26 @@
 		513584151BD337A3008EEDF1 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				513584161BD337B2008EEDF1 /* Item.swift */,
-				513584181BD33983008EEDF1 /* Damageable.swift */,
 				5135841A1BD33A31008EEDF1 /* Ability.swift */,
-				5135841C1BD33A8B008EEDF1 /* Entity.swift */,
-				5135843B1BD36F23008EEDF1 /* UsableItem.swift */,
+				513584181BD33983008EEDF1 /* Damageable.swift */,
 				5135844B1BD48C66008EEDF1 /* Drawable.swift */,
+				5135841C1BD33A8B008EEDF1 /* Entity.swift */,
+				513584161BD337B2008EEDF1 /* Item.swift */,
+				5135843B1BD36F23008EEDF1 /* UsableItem.swift */,
 			);
-			name = Protocols;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		513584241BD33E85008EEDF1 /* Abilities */ = {
 			isa = PBXGroup;
 			children = (
 				513584261BD33E97008EEDF1 /* BasicAttackAbility.swift */,
+				5135844D1BD494A8008EEDF1 /* DefensiveStanceAbility.swift */,
+				513584431BD37D86008EEDF1 /* GroupHealAbility.swift */,
 				513584281BD34065008EEDF1 /* HealAbility.swift */,
 				513584411BD37CB1008EEDF1 /* ShadowBladeAbility.swift */,
-				513584431BD37D86008EEDF1 /* GroupHealAbility.swift */,
-				5135844D1BD494A8008EEDF1 /* DefensiveStanceAbility.swift */,
 			);
-			name = Abilities;
+			path = Abilities;
 			sourceTree = "<group>";
 		};
 		513584251BD33E8A008EEDF1 /* Items */ = {
@@ -217,27 +217,27 @@
 			children = (
 				513584371BD356BC008EEDF1 /* RustySwordItem.swift */,
 			);
-			name = Items;
+			path = Items;
 			sourceTree = "<group>";
 		};
 		5135842A1BD3486A008EEDF1 /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				513584201BD33BC3008EEDF1 /* Character.swift */,
 				5135842C1BD34879008EEDF1 /* Enemies */,
 				5135842B1BD34873008EEDF1 /* Players */,
+				513584201BD33BC3008EEDF1 /* Character.swift */,
 			);
-			name = Characters;
+			path = Characters;
 			sourceTree = "<group>";
 		};
 		5135842B1BD34873008EEDF1 /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				5135842D1BD34994008EEDF1 /* Neophyte.swift */,
-				5135842F1BD34B89008EEDF1 /* Knight.swift */,
 				513584451BD38039008EEDF1 /* Cleric.swift */,
+				5135842F1BD34B89008EEDF1 /* Knight.swift */,
+				5135842D1BD34994008EEDF1 /* Neophyte.swift */,
 			);
-			name = Players;
+			path = Players;
 			sourceTree = "<group>";
 		};
 		5135842C1BD34879008EEDF1 /* Enemies */ = {
@@ -246,25 +246,25 @@
 				5135843F1BD378E4008EEDF1 /* EnemyCharacter.swift */,
 				513584311BD34BAC008EEDF1 /* Rat.swift */,
 			);
-			name = Enemies;
+			path = Enemies;
 			sourceTree = "<group>";
 		};
 		513584331BD34CD5008EEDF1 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				513584221BD33C1E008EEDF1 /* LevelManager.swift */,
 				513584391BD36D20008EEDF1 /* BattleManager.swift */,
+				513584221BD33C1E008EEDF1 /* LevelManager.swift */,
 			);
-			name = Managers;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		513584341BD34D6F008EEDF1 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				513584351BD34D7D008EEDF1 /* CharacterNode.swift */,
 				513584491BD45F3D008EEDF1 /* AbilityNode.swift */,
+				513584351BD34D7D008EEDF1 /* CharacterNode.swift */,
 			);
-			name = Nodes;
+			path = Nodes;
 			sourceTree = "<group>";
 		};
 		513584511BD49B4A008EEDF1 /* Extensions */ = {
@@ -272,7 +272,7 @@
 			children = (
 				513584521BD49B56008EEDF1 /* Array+Random.swift */,
 			);
-			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -474,6 +474,7 @@
 				513583EC1BD3379E008EEDF1 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		513583F01BD3379E008EEDF1 /* LaunchScreen.storyboard */ = {
@@ -482,6 +483,7 @@
 				513583F11BD3379E008EEDF1 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -659,6 +661,7 @@
 				5135840E1BD3379E008EEDF1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5135840F1BD3379E008EEDF1 /* Build configuration list for PBXNativeTarget "SwiftDungeonTests" */ = {
 			isa = XCConfigurationList;
@@ -667,6 +670,7 @@
 				513584111BD3379E008EEDF1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		513584121BD3379E008EEDF1 /* Build configuration list for PBXNativeTarget "SwiftDungeonUITests" */ = {
 			isa = XCConfigurationList;
@@ -675,6 +679,7 @@
 				513584141BD3379E008EEDF1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
