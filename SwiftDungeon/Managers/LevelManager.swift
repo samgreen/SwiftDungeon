@@ -17,7 +17,7 @@ class LevelManager {
     
     var delegate: LevelManagerDelegate?
     
-    var level = 6
+    var level = 1
     var isBossLevel: Bool { return level % 10 == 5 || level % 10 == 0 }
     
     func moveToNextLevel() {
