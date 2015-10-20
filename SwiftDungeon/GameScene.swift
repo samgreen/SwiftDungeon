@@ -22,7 +22,7 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
         
         backgroundNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         backgroundNode.zPosition = -1000
-        backgroundNode.setScale(3)
+        backgroundNode.setScale(3.2)
         addChild(backgroundNode)
         
         levelLabel.horizontalAlignmentMode = .Left
