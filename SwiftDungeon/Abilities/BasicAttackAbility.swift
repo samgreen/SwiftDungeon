@@ -13,6 +13,7 @@ class BasicAttackAbility: Ability {
     let cost = 0
     let name = "Attack"
     let description = "Default attack does damage equal to your attack power."
+    let animationType: CharacterSpriteAnimation = .Attack
     
     let imageName = "BasicAttack"
     let imageColor = UIColor.orangeColor()

@@ -13,6 +13,7 @@ class DefensiveStanceAbility: Ability {
     let cost = 2
     let name = "Hunker Down"
     let description = "Forego an attack in favor of increased defense for this turn."
+    let animationType: CharacterSpriteAnimation = .CastSpell
     
     let imageName = "DefensiveStance"
     let imageColor = UIColor.grayColor()

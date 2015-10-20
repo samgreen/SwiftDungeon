@@ -75,6 +75,6 @@ class BattleManager {
     }
     
     private func generateEnemy() -> Character {
-        return Rat()
+        return Skeleton()
     }
 }

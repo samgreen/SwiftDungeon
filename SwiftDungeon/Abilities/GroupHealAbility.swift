@@ -13,6 +13,7 @@ class GroupHealAbility: Ability {
     let cost = 6
     let name = "Group Heal"
     let description = "Heals all players for double your attack power."
+    let animationType: CharacterSpriteAnimation = .CastSpell
     
     let imageName = "GroupHeal"
     let imageColor = UIColor.redColor()

@@ -13,23 +13,34 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
     var abilityNodes = [AbilityNode]()
     
     let levelLabel = SKLabelNode(fontNamed: "PressStart2P")
+    let currentCharacterLabel = SKLabelNode(fontNamed: "PressStart2P")
     var pendingAbility: Ability?
+    let backgroundNode = SKSpriteNode(imageNamed: "Background0")
     
     override func didMoveToView(view: SKView) {
         scaleMode = .AspectFill
         
-        BattleManager.sharedManager.delegate = self
-        LevelManager.sharedManager.delegate = self
+        backgroundNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        backgroundNode.zPosition = -1000
+        backgroundNode.setScale(3.2)
+        addChild(backgroundNode)
         
-        LevelManager.sharedManager.addPlayer(Neophyte())
-        LevelManager.sharedManager.addPlayer(Knight())
-        LevelManager.sharedManager.addPlayer(Cleric())
-
         levelLabel.horizontalAlignmentMode = .Left
         levelLabel.fontSize = 12
         levelLabel.position = CGPoint(x: 4, y: CGRectGetMaxY(self.frame) - levelLabel.fontSize - 4)
+        addChild(levelLabel)
         
-        self.addChild(levelLabel)
+        currentCharacterLabel.horizontalAlignmentMode = .Center
+        currentCharacterLabel.fontSize = 14
+        currentCharacterLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        addChild(currentCharacterLabel)
+        
+        BattleManager.sharedManager.delegate = self
+        LevelManager.sharedManager.delegate = self
+        
+        LevelManager.sharedManager.addPlayer(Cleric())
+        LevelManager.sharedManager.addPlayer(Neophyte())
+        LevelManager.sharedManager.addPlayer(Knight())
         
         LevelManager.sharedManager.moveToNextLevel()
     }
@@ -47,7 +58,8 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
                 if let pendingAbility = self.pendingAbility {
                     if pendingAbility.canExecuteOnTarget(node.character) {
                         if let activeCharacter = BattleManager.sharedManager.activeCharacter {
-                            activeCharacter.node?.addAttackAnimation {
+                            activeCharacter.node?.showStatusMessage(pendingAbility.name, color: pendingAbility.imageColor)
+                            activeCharacter.node?.sprite.playAnimation(pendingAbility.animationType, loop: false) {
                                 activeCharacter.executeAbility(pendingAbility, target: node.character)
                                 BattleManager.sharedManager.endTurn()
                             }
@@ -63,6 +75,7 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
             }
             
             if let node = touchedAbilityNodes.first {
+                abilityNodes.forEach { $0.removeSelectedAction() }
                 node.addSelectedAction()
                 pendingAbility = node.ability
             } else {
@@ -93,6 +106,7 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
         characterNodes.forEach { $0.removeSelectedAction() }
         activeCharacter.node?.addSelectedAction()
         addAbilityNodesForCharacter(activeCharacter)
+        currentCharacterLabel.text = activeCharacter.name
         
         if activeCharacter.isEnemy {
             let enemyCharacter = activeCharacter
@@ -126,14 +140,12 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
     private func addCharacterNode(node: CharacterNode, isEnemy: Bool, index: Int) {
         let size = node.calculateAccumulatedFrame().size
         let xPadding: CGFloat = 70
-        let ySpacing: CGFloat = 20 + size.height
+        let ySpacing: CGFloat = 20 + size.height * 0.75
         let yPosition: CGFloat = CGRectGetMinY(self.frame) + ySpacing + CGFloat(index) * ySpacing
         if isEnemy {
             node.position = CGPoint(x: CGRectGetMaxX(self.frame) - xPadding, y: yPosition)
-            node.sprite.color = UIColor.redColor()
         } else {
             node.position = CGPoint(x: xPadding, y: yPosition)
-            node.sprite.color = UIColor.greenColor()
         }
         
         characterNodes.append(node)

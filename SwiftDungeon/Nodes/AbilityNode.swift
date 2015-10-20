@@ -15,7 +15,7 @@ class AbilityNode: SKNode {
     let sprite: SKSpriteNode
     let nameLabel: SKLabelNode = SKLabelNode(fontNamed: "PressStart2P")
     let abilityLabel: SKLabelNode = SKLabelNode(fontNamed: "PressStart2P")
-    let border: SKShapeNode = SKShapeNode(rectOfSize: CGSize(width: 64, height: 64))
+    let border: SKShapeNode = SKShapeNode(rectOfSize: CGSize(width: 61, height: 61))
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("CharacterNode does not support NSCoding")
@@ -24,14 +24,17 @@ class AbilityNode: SKNode {
     init(ability: Ability) {
         self.ability = ability
         
-        border.strokeColor = UIColor.greenColor()
-        border.lineWidth = 2
-        border.hidden = true
-        
         sprite = SKSpriteNode(imageNamed: ability.imageName)
         sprite.color = ability.imageColor
         sprite.colorBlendFactor = 1.0
         sprite.size = CGSize(width: 64, height: 64)
+        sprite.zPosition = 100
+        
+        border.strokeColor = UIColor.blueColor()
+        border.lineWidth = 3
+        border.lineJoin = .Miter
+        border.hidden = true
+        border.zPosition = sprite.zPosition + 10
         
         nameLabel.position = CGPoint(x: 0, y: sprite.size.height * 0.5 + 4)
         nameLabel.fontSize = 6
@@ -45,8 +48,8 @@ class AbilityNode: SKNode {
         
         super.init()
         
-        addChild(border)
         addChild(sprite)
+        addChild(border)
         addChild(nameLabel)
         addChild(abilityLabel)
         
@@ -55,10 +58,12 @@ class AbilityNode: SKNode {
     
     func addSelectedAction() {
         border.hidden = false
+        nameLabel.fontColor = UIColor.whiteColor()
     }
     
     func removeSelectedAction() {
         border.hidden = true
+        nameLabel.fontColor = ability.imageColor
     }
     
     func updateFromAbility() {

@@ -14,6 +14,7 @@ protocol Ability: Drawable {
     var cost: Int { get } // Cost in ability points
     
     var owner: Character { get }
+    var animationType: CharacterSpriteAnimation { get }
     
     func execute(executor: Character, target: Character)
     func canExecuteOnTarget(target: Character) -> Bool
