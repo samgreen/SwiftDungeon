@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class Character: Entity {
     var node: CharacterNode?
@@ -44,6 +45,13 @@ class Character: Entity {
     var isEnemy = false
     var items = [Item]()
     
+    var staticTexture: SKTexture?
+    
+    let deathAnimationFrameRange = 260...265
+    let walkAnimationFrameRange = 143...151
+    let spellAnimationFrameRange = 39...45
+    let attackAnimationFrameRange = 195...200
+    
     init(health: Int, abilityPoints: Int, attackPower: Int) {
         self.health = health
         self.maxHealth = health
@@ -60,6 +68,18 @@ class Character: Entity {
         if canExecuteAbility(ability) && ability.canExecuteOnTarget(target) {
             abilityPoints -= ability.cost
             ability.execute(self, target: target)
+            
+            if target.isEnemy {
+                if let node = target.node {
+                    let redAction = SKAction.colorizeWithColor(UIColor.redColor(), colorBlendFactor: 0.5, duration: 0.33)
+                    let redSequence = SKAction.sequence([redAction, redAction.reversedAction()])
+                    redSequence.timingMode = .EaseInEaseOut
+                    let blendAction = SKAction.colorizeWithColorBlendFactor(1.0, duration: 0.33)
+                    let blendSequence = SKAction.sequence([blendAction, blendAction.reversedAction()])
+                    blendSequence.timingMode = .EaseInEaseOut
+                    node.sprite.sprite.runAction(SKAction.group([redSequence, blendSequence]))
+                }
+            }
         }
     }
     

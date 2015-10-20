@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import SpriteKit
 
 class Skeleton: EnemyCharacter {
     init() {
         super.init(health: 20, abilityPoints: 0, attackPower: 5)
         
         name = "Skeleton"
+        staticTexture = SKTexture(imageNamed: "Skeleton")
     }
 }

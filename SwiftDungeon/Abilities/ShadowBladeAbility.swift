@@ -13,6 +13,7 @@ class ShadowBladeAbility: Ability {
     let cost = 3
     let name = "Shadow Blade"
     let description = "Your blade darkens and does double damage to foes."
+    let animationType: CharacterSpriteAnimation = .Attack
     
     let imageName = "ShadowBlade"
     let imageColor = UIColor.purpleColor()

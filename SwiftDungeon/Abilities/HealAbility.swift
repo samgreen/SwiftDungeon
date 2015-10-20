@@ -13,6 +13,7 @@ class HealAbility: Ability {
     let cost = 2
     let name = "Heal"
     let description = "Completely heal a friendly target. Removes all negative status effects."
+    let animationType: CharacterSpriteAnimation = .CastSpell
     
     let imageName = "Heal"
     let imageColor = UIColor.redColor()

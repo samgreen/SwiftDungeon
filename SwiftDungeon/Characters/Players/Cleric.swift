@@ -9,6 +9,7 @@
 import Foundation
 
 class Cleric: Character {
+    
     init() {
         super.init(health: 8, abilityPoints: 18, attackPower: 8)
         
