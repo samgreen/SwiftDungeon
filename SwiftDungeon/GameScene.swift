@@ -126,14 +126,12 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
     private func addCharacterNode(node: CharacterNode, isEnemy: Bool, index: Int) {
         let size = node.calculateAccumulatedFrame().size
         let xPadding: CGFloat = 70
-        let ySpacing: CGFloat = 20 + size.height
+        let ySpacing: CGFloat = 20 + size.height * 0.75
         let yPosition: CGFloat = CGRectGetMinY(self.frame) + ySpacing + CGFloat(index) * ySpacing
         if isEnemy {
             node.position = CGPoint(x: CGRectGetMaxX(self.frame) - xPadding, y: yPosition)
-            node.sprite.color = UIColor.redColor()
         } else {
             node.position = CGPoint(x: xPadding, y: yPosition)
-            node.sprite.color = UIColor.greenColor()
         }
         
         characterNodes.append(node)

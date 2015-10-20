@@ -40,6 +40,8 @@
 		5135844C1BD48C66008EEDF1 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135844B1BD48C66008EEDF1 /* Drawable.swift */; settings = {ASSET_TAGS = (); }; };
 		5135844E1BD494A8008EEDF1 /* DefensiveStanceAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135844D1BD494A8008EEDF1 /* DefensiveStanceAbility.swift */; settings = {ASSET_TAGS = (); }; };
 		513584531BD49B56008EEDF1 /* Array+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513584521BD49B56008EEDF1 /* Array+Random.swift */; settings = {ASSET_TAGS = (); }; };
+		5135845F1BD5F29F008EEDF1 /* CharacterSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5135845E1BD5F29F008EEDF1 /* CharacterSpriteNode.swift */; settings = {ASSET_TAGS = (); }; };
+		513584611BD5FB61008EEDF1 /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513584601BD5FB61008EEDF1 /* Skeleton.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,8 @@
 		5135844B1BD48C66008EEDF1 /* Drawable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		5135844D1BD494A8008EEDF1 /* DefensiveStanceAbility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefensiveStanceAbility.swift; sourceTree = "<group>"; };
 		513584521BD49B56008EEDF1 /* Array+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Random.swift"; sourceTree = "<group>"; };
+		5135845E1BD5F29F008EEDF1 /* CharacterSpriteNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSpriteNode.swift; sourceTree = "<group>"; };
+		513584601BD5FB61008EEDF1 /* Skeleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +249,7 @@
 			children = (
 				5135843F1BD378E4008EEDF1 /* EnemyCharacter.swift */,
 				513584311BD34BAC008EEDF1 /* Rat.swift */,
+				513584601BD5FB61008EEDF1 /* Skeleton.swift */,
 			);
 			path = Enemies;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 			children = (
 				513584491BD45F3D008EEDF1 /* AbilityNode.swift */,
 				513584351BD34D7D008EEDF1 /* CharacterNode.swift */,
+				5135845E1BD5F29F008EEDF1 /* CharacterSpriteNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -422,12 +428,14 @@
 				5135841D1BD33A8B008EEDF1 /* Entity.swift in Sources */,
 				513583EA1BD3379E008EEDF1 /* GameViewController.swift in Sources */,
 				513584301BD34B89008EEDF1 /* Knight.swift in Sources */,
+				5135845F1BD5F29F008EEDF1 /* CharacterSpriteNode.swift in Sources */,
 				5135844E1BD494A8008EEDF1 /* DefensiveStanceAbility.swift in Sources */,
 				5135843C1BD36F23008EEDF1 /* UsableItem.swift in Sources */,
 				513584271BD33E97008EEDF1 /* BasicAttackAbility.swift in Sources */,
 				513584361BD34D7D008EEDF1 /* CharacterNode.swift in Sources */,
 				513584461BD38039008EEDF1 /* Cleric.swift in Sources */,
 				513584191BD33983008EEDF1 /* Damageable.swift in Sources */,
+				513584611BD5FB61008EEDF1 /* Skeleton.swift in Sources */,
 				5135843A1BD36D20008EEDF1 /* BattleManager.swift in Sources */,
 				5135841B1BD33A31008EEDF1 /* Ability.swift in Sources */,
 				513583E41BD3379E008EEDF1 /* AppDelegate.swift in Sources */,

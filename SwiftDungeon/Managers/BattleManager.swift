@@ -68,19 +68,13 @@ class BattleManager {
     private func generateEnemies() {
         enemies.removeAll()
         
-        var numEnemies = 1
-        switch LevelManager.sharedManager.level {
-        case 3...4: numEnemies = 2
-        case 6...9: numEnemies = Int(arc4random_uniform(2) + 2)
-        default: numEnemies = 1
-        }
-        
+        let numEnemies = Int(ceilf(Float(LevelManager.sharedManager.level) / 2))
         for _ in 0...numEnemies - 1 {
             enemies.append(generateEnemy())
         }
     }
     
     private func generateEnemy() -> Character {
-        return Rat()
+        return Skeleton()
     }
 }

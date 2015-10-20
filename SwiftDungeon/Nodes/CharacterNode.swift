@@ -12,7 +12,7 @@ import SpriteKit
 class CharacterNode: SKNode {
     let character: Character
     
-    let sprite: SKSpriteNode = SKSpriteNode()
+    let sprite: CharacterSpriteNode
     let nameLabel: SKLabelNode = SKLabelNode(fontNamed: "PressStart2P")
     let healthLabel: SKLabelNode = SKLabelNode(fontNamed: "PressStart2P")
     let abilityLabel: SKLabelNode = SKLabelNode(fontNamed: "PressStart2P")
@@ -24,9 +24,9 @@ class CharacterNode: SKNode {
     init(character: Character) {
         self.character = character
         
-        sprite.size = CGSize(width: 32, height: 32)
+        sprite = CharacterSpriteNode(baseName: character.name)
         
-        nameLabel.position = CGPoint(x: 0, y: -sprite.frame.size.height - 6)
+        nameLabel.position = CGPoint(x: 0, y: -sprite.sprite.size.height * 0.5 - 18)
         nameLabel.fontSize = 16
         nameLabel.horizontalAlignmentMode = .Center
         
