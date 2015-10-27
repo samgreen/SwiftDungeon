@@ -1,0 +1,5 @@
+import "BaseMessage.proto";
+
+message StartBattleMessage {
+  required BaseMessage base = 1;
+}

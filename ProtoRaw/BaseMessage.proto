@@ -1,0 +1,10 @@
+message BaseMessage {
+  enum Type {
+    START_BATTLE = 0;
+    END_BATTLE = 1;
+    END_TURN = 2;
+    MOVE_TO_ACTIVE_CHARACTER = 3;
+    USE_ABILITY = 4;
+  }
+  required Type type = 1;
+}
