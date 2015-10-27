@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		510183FC1BDFAA1300126A6E /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510183FB1BDFAA1300126A6E /* Queue.swift */; settings = {ASSET_TAGS = (); }; };
-		510183FE1BDFCA8900126A6E /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 510183FD1BDFCA8900126A6E /* Podfile */; settings = {ASSET_TAGS = (); }; };
 		513583E41BD3379E008EEDF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513583E31BD3379E008EEDF1 /* AppDelegate.swift */; };
 		513583E61BD3379E008EEDF1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 513583E51BD3379E008EEDF1 /* GameScene.sks */; };
 		513583E81BD3379E008EEDF1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513583E71BD3379E008EEDF1 /* GameScene.swift */; };
@@ -67,7 +66,7 @@
 /* Begin PBXFileReference section */
 		2DB4B8BE3A446FD871EA5A16 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		510183FB1BDFAA1300126A6E /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		510183FD1BDFCA8900126A6E /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		511AB81C1BDFFF450050F893 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		513583E01BD3379E008EEDF1 /* SwiftDungeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftDungeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		513583E31BD3379E008EEDF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		513583E51BD3379E008EEDF1 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -142,6 +141,7 @@
 		513583D71BD3379E008EEDF1 = {
 			isa = PBXGroup;
 			children = (
+				511AB81C1BDFFF450050F893 /* Podfile */,
 				513583E11BD3379E008EEDF1 /* Products */,
 				513583E21BD3379E008EEDF1 /* SwiftDungeon */,
 				513583FB1BD3379E008EEDF1 /* SwiftDungeonTests */,
@@ -181,7 +181,6 @@
 				513583EB1BD3379E008EEDF1 /* Main.storyboard */,
 				513584471BD435DC008EEDF1 /* PressStart2P.ttf */,
 				513584621BD61220008EEDF1 /* Assets.xcassets */,
-				510183FD1BDFCA8900126A6E /* Podfile */,
 			);
 			path = SwiftDungeon;
 			sourceTree = "<group>";
@@ -417,7 +416,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				510183FE1BDFCA8900126A6E /* Podfile in Resources */,
 				513584481BD435DC008EEDF1 /* PressStart2P.ttf in Resources */,
 				513583E61BD3379E008EEDF1 /* GameScene.sks in Resources */,
 				513583F21BD3379E008EEDF1 /* LaunchScreen.storyboard in Resources */,
