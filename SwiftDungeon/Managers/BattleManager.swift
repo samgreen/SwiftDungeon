@@ -11,6 +11,10 @@ import Foundation
 protocol BattleManagerDelegate {
     func didMoveToActiveCharacter(activeCharacter: Character)
     func didStartBattle()
+    func didEndBattle()
+    
+    func didStartTurn()
+    func didEndTurn()
 }
 
 class BattleManager {
@@ -20,41 +24,46 @@ class BattleManager {
 
     var players = [Character]()
     var enemies = [Character]()
-    var combatQueue = [Character]()
+    var livingCharacters: [Character] {
+        var characters = [Character]()
+        characters.appendContentsOf(self.players.filter { $0.health <= 0 })
+        characters.appendContentsOf(self.enemies.filter { $0.health <= 0 })
+        return characters
+    }
+    var combatQueue = Queue<Character>()
     var activeCharacter: Character?
     
     func startBattle() {
         generateEnemies()
         
         combatQueue.removeAll()
-        combatQueue.appendContentsOf(players)
-        combatQueue.appendContentsOf(enemies)
+        players.forEach { combatQueue.enqueue($0) }
+        enemies.forEach { combatQueue.enqueue($0) }
         
         if let delegate = self.delegate {
             delegate.didStartBattle()
         }
-        
-        moveToNextCharacter()
     }
     
     func endTurn() {
-        combatQueue = combatQueue.filter { $0.health > 0 }
-        
         let deadPlayers = players.filter { $0.health <= 0 }
         deadPlayers.forEach { $0.node?.addDeathAnimation() }
         
         let deadEnemies = enemies.filter { $0.health <= 0 }
         deadEnemies.forEach { $0.node?.addDeathAnimation() }
         
-        moveToNextCharacter()
+        if let delegate = self.delegate {
+            if deadPlayers.count == players.count || deadEnemies.count == enemies.count {
+                delegate.didEndBattle()
+            } else {
+                delegate.didEndTurn()
+            }
+        }
     }
     
     func moveToNextCharacter() {
         // Check entity status here to ensure they aren't stunned
-        if let activeCharacter = combatQueue.filter({ $0.status != .Stunned }).first {
-            combatQueue.insert(activeCharacter, atIndex: combatQueue.count)
-            combatQueue.removeFirst()
-            
+        if let activeCharacter = combatQueue.dequeue() {
             print("\(activeCharacter.name): \(activeCharacter.validAbilities)")
             
             self.activeCharacter = activeCharacter
@@ -62,7 +71,41 @@ class BattleManager {
             if let delegate = self.delegate {
                 delegate.didMoveToActiveCharacter(activeCharacter)
             }
+            
+            combatQueue.enqueue(activeCharacter)
         }
+    }
+    
+    func nextActiveCharacter() -> Character? {
+        var character: Character? = nil
+        repeat {
+            character = combatQueue.dequeue()
+        } while character != nil
+        
+        return character
+    }
+    
+    func performAbilityForCharacter(ability: Ability?, character: Character?, target: Character?) -> Bool {
+        if let character = character {
+            if let ability = ability {
+                if let target = target {
+                    if character.isEnemy {
+                        character.node?.sprite.playAnimation(ability.animationType, loop: false) {
+                            character.executeAbility(ability, target: target)
+                            BattleManager.sharedManager.endTurn()
+                        }
+                    } else {
+                        character.node?.showStatusMessage(ability.name, color: ability.imageColor)
+                        character.node?.sprite.playAnimation(ability.animationType, loop: false) {
+                            character.executeAbility(ability, target: target)
+                            BattleManager.sharedManager.endTurn()
+                        }
+                    }
+                    return true
+                }
+            }
+        }
+        return false
     }
     
     private func generateEnemies() {

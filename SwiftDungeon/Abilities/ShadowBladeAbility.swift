@@ -14,6 +14,7 @@ class ShadowBladeAbility: Ability {
     let name = "Shadow Blade"
     let description = "Your blade darkens and does double damage to foes."
     let animationType: CharacterSpriteAnimation = .Attack
+    let targetAnimationType: CharacterSpriteAnimation = .Hurt
     
     let imageName = "ShadowBlade"
     let imageColor = UIColor.purpleColor()

@@ -55,17 +55,13 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
             }
             
             if let node = touchedCharacterNodes.first {
-                if let pendingAbility = self.pendingAbility {
-                    if pendingAbility.canExecuteOnTarget(node.character) {
-                        if let activeCharacter = BattleManager.sharedManager.activeCharacter {
-                            activeCharacter.node?.showStatusMessage(pendingAbility.name, color: pendingAbility.imageColor)
-                            activeCharacter.node?.sprite.playAnimation(pendingAbility.animationType, loop: false) {
-                                activeCharacter.executeAbility(pendingAbility, target: node.character)
-                                BattleManager.sharedManager.endTurn()
-                            }
-                            return
-                        }
-                    }
+                let battleManager = BattleManager.sharedManager
+                if (node.character.isEnemy && pendingAbility == nil) {
+                    pendingAbility = battleManager.activeCharacter?.abilities[0]
+                }
+                let success = battleManager.performAbilityForCharacter(pendingAbility, character: battleManager.activeCharacter, target: node.character)
+                if success {
+                    return
                 }
             }
             
@@ -78,9 +74,6 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
                 abilityNodes.forEach { $0.removeSelectedAction() }
                 node.addSelectedAction()
                 pendingAbility = node.ability
-            } else {
-                abilityNodes.forEach { $0.removeSelectedAction() }
-                pendingAbility = nil
             }
         }
     }
@@ -93,8 +86,8 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
     // MARK: LevelManagerDelegate
     func didMoveToLevel(level: Int) {
         levelLabel.text = "Level \(level)"
-        
         BattleManager.sharedManager.startBattle()
+        BattleManager.sharedManager.moveToNextCharacter()
     }
     
     // MARK: BattleManagerDelegate
@@ -102,38 +95,52 @@ class GameScene: SKScene, BattleManagerDelegate, LevelManagerDelegate {
         addNodesForLevel()
     }
     
+    func didEndBattle() {
+        if BattleManager.sharedManager.players.filter( { $0.health > 0 } ).count > 0 {
+            // Player won
+            LevelManager.sharedManager.moveToNextLevel()
+        } else {
+            // Enemy won
+        }
+    }
+    
+    func didStartTurn() {
+        
+    }
+    
+    func didEndTurn() {
+        BattleManager.sharedManager.moveToNextCharacter()
+    }
+    
     func didMoveToActiveCharacter(activeCharacter: Character) {
         characterNodes.forEach { $0.removeSelectedAction() }
+        pendingAbility = nil
         activeCharacter.node?.addSelectedAction()
         addAbilityNodesForCharacter(activeCharacter)
         currentCharacterLabel.text = activeCharacter.name
         
         if activeCharacter.isEnemy {
-            let enemyCharacter = activeCharacter
             // AI Logic
             let randomPlayer = BattleManager.sharedManager.players.randomElement()
-            if let basicAttack = enemyCharacter.abilities.last {
-                if basicAttack.canExecuteOnTarget(randomPlayer) {
-                    enemyCharacter.node?.addAttackAnimation {
-                        enemyCharacter.executeAbility(basicAttack, target: randomPlayer)
-                        BattleManager.sharedManager.endTurn()
-                    }
-                    return
-                }
-            }
+            BattleManager.sharedManager.performAbilityForCharacter(activeCharacter.abilities.last, character: activeCharacter, target: randomPlayer)
         }
     }
     
     // MARK: Helpers
     private func addNodesForLevel() {
+        characterNodes.forEach { $0.removeFromParent() }
+        characterNodes.removeAll()
+        
         for (i, enemy) in BattleManager.sharedManager.enemies.enumerate() {
             let node = CharacterNode(character: enemy)
             addCharacterNode(node, isEnemy: true, index: i)
         }
         
         for (i, player) in BattleManager.sharedManager.players.enumerate() {
-            let node = CharacterNode(character: player)
-            addCharacterNode(node, isEnemy: false, index: i)
+            if player.health > 0 {
+                let node = CharacterNode(character: player)
+                addCharacterNode(node, isEnemy: false, index: i)
+            }
         }
     }
     

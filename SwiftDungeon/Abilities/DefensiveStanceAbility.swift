@@ -14,6 +14,7 @@ class DefensiveStanceAbility: Ability {
     let name = "Hunker Down"
     let description = "Forego an attack in favor of increased defense for this turn."
     let animationType: CharacterSpriteAnimation = .CastSpell
+    let targetAnimationType: CharacterSpriteAnimation = .None
     
     let imageName = "DefensiveStance"
     let imageColor = UIColor.grayColor()

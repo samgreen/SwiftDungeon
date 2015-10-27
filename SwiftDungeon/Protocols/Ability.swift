@@ -15,6 +15,7 @@ protocol Ability: Drawable {
     
     var owner: Character { get }
     var animationType: CharacterSpriteAnimation { get }
+    var targetAnimationType: CharacterSpriteAnimation { get }
     
     func execute(executor: Character, target: Character)
     func canExecuteOnTarget(target: Character) -> Bool

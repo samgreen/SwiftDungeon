@@ -67,19 +67,10 @@ class Character: Entity {
     func executeAbility(ability: Ability, target: Character) {
         if canExecuteAbility(ability) && ability.canExecuteOnTarget(target) {
             abilityPoints -= ability.cost
+            
             ability.execute(self, target: target)
             
-            if target.isEnemy {
-                if let node = target.node {
-                    let redAction = SKAction.colorizeWithColor(UIColor.redColor(), colorBlendFactor: 0.5, duration: 0.33)
-                    let redSequence = SKAction.sequence([redAction, redAction.reversedAction()])
-                    redSequence.timingMode = .EaseInEaseOut
-                    let blendAction = SKAction.colorizeWithColorBlendFactor(1.0, duration: 0.33)
-                    let blendSequence = SKAction.sequence([blendAction, blendAction.reversedAction()])
-                    blendSequence.timingMode = .EaseInEaseOut
-                    node.sprite.sprite.runAction(SKAction.group([redSequence, blendSequence]))
-                }
-            }
+            target.node?.sprite.playAnimation(ability.targetAnimationType, loop: false, completion: nil)
         }
     }
     
